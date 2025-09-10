@@ -16,6 +16,7 @@ class basicHttpMethod{
     await getExample();
     await postExample();
     await putExample();
+    await deleteExample();
 
   }
   //Get request - read data
@@ -117,15 +118,47 @@ class basicHttpMethod{
       print("Status Code: ${response.statusCode}");
 
       if(response.statusCode ==200){
-
+        final data = jsonDecode(response.body);
+        print('Update title: ${data['title']}');
+        print("Update Body: ${data['body']}");
+      }else{
+        print('Error : ${response.statusCode}');
       }
-
-
     }catch(e){
       print("Exception: $e");
     }
-
+    print('');
   }
+
+  //Delete Request - remove Resource
+
+    static Future<void> deleteExample()async{
+    print("Delete Request Example");
+    print("======================");
+    try{
+
+      print("Deleting Post with id 1");
+
+      final response = await http.delete(
+        Uri.parse('$baseUrl/posts/1'),
+        headers: {
+          'Content-Type':'application/json',
+          'Accept': 'application/json',
+
+      }
+      );
+
+      print('Status Code: ${response.statusCode}');
+
+      if(response.statusCode==200){
+        print("Post deleted Successfully");
+      }else{
+        print("Error: ${response.statusCode}");
+      }
+    }catch(e){
+      print("Exception: $e");
+    }
+    }
 
 
 }
