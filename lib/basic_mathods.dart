@@ -86,6 +86,40 @@ class basicHttpMethod{
     }
     print('');
     }
+
+    //Put Request  update entire resource
+
+  static Future<void> putExample()async{
+    print('Put Request Example');
+    print('=====================');
+
+    try{
+      final updatedPost ={
+        'id':1,
+        'title':'Updated Title via put',
+        'body': 'This post was completely updated using put',
+        'userId': 1,
+      };
+
+      print('Updating post with id 1...');
+      print('New Title: ${updatedPost['title']}');
+
+      final response = await http.put(
+        Uri.parse('$baseUrl/posts/1'),
+        headers: {
+          'Content-Type' : 'application/json',
+          'Accept' : 'application/json'
+        },
+        body: jsonEncode(updatedPost),
+      );
+
+    }catch(e){
+      print("Exception: $e");
+    }
+
+  }
+
+
 }
 
 
