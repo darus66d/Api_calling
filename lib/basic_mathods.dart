@@ -52,6 +52,39 @@ class basicHttpMethod{
 
     static Future<void> postExample()async{
     print('Post request Example');
+    print('=====================');
+    
+    try{
+      final newPost = {
+        'title': 'My First post from Dart',
+        'body' : 'This post was created using dart http package',
+        'userId' : 1,
+      };
+      
+      print('Creating new post.....');
+      print('Title : ${newPost['title']}');
+      
+      final response = await http.post(
+          Uri.parse('$baseUrl/posts'),
+        headers: {
+            'Content-Type': 'application/json',
+          'Accept':'application/json',
+        },
+        body: jsonEncode(newPost),
+      );
+      print('status Code: ${response.statusCode}');
+
+      if(response.statusCode == 201){
+        final data = jsonDecode(response.body);
+        print('Created post ID: ${data['id']}');
+        print('Title: ${data['title']}');
+      }else{
+        print("Error: ${response.statusCode}");
+      }
+    }catch(e){
+      print("Exception:$e");
+    }
+    print('');
     }
 }
 
