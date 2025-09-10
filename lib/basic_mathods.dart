@@ -15,6 +15,7 @@ class basicHttpMethod{
 
     await getExample();
     await postExample();
+    await putExample();
 
   }
   //Get request - read data
@@ -112,6 +113,13 @@ class basicHttpMethod{
         },
         body: jsonEncode(updatedPost),
       );
+
+      print("Status Code: ${response.statusCode}");
+
+      if(response.statusCode ==200){
+
+      }
+
 
     }catch(e){
       print("Exception: $e");
